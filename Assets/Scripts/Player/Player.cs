@@ -138,6 +138,8 @@ public class Player : MonoBehaviour
         {
             controller.SetDashButtonState(dashUnlocked);
         }
+
+        StartCoroutine(CheckNearbyEnemiesCoroutine());
     }
 
     private void Update()
@@ -485,6 +487,42 @@ public class Player : MonoBehaviour
         if (controller != null)
         {
             controller.SetDashButtonState(dashUnlocked); // Actualizar el botón de dash
+        }
+    }
+
+    public float rangeEnemy = 20;
+    private IEnumerator CheckNearbyEnemiesCoroutine()
+    {
+        
+        while (true)
+        {
+            // Time-slicing: Verificar cada 2 segundos
+            yield return new WaitForSeconds(2f);
+
+            // LINQ Where (Grupo 1): Filtrar enemigos activos y cercanos
+            var nearbyEnemies = FindObjectsOfType<Entity>()
+                .Where(e => e.CompareTag("Enemy") &&
+                            Vector2.Distance(transform.position, e.transform.position) < rangeEnemy)
+                .ToList();
+
+            // Tipo anónimo para UI
+            var enemiesInfo = nearbyEnemies.Select(e => new
+            {
+                Name = e.gameObject.name,
+                Distance = Vector2.Distance(transform.position, e.transform.position),
+                Health = e.life
+            }).ToList();
+
+            // Actualizar UI (ejemplo)
+            // En el método CheckNearbyEnemiesCoroutine:
+            if (enemiesInfo.Any())
+            {
+                gamePlayCanvas.ShowEnemyAlert($"{enemiesInfo.Count} enemigos cerca!");
+            }
+            else
+            {
+                gamePlayCanvas.HideEnemyAlert();
+            }
         }
     }
     private void OnDrawGizmos()

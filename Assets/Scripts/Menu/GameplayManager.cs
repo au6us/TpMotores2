@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] EventTrigger CheckPointButton;
     [SerializeField] EventTrigger nextLevelButton;
     private Player player;
+
+    [Header("Alertas UI")]
+    [SerializeField] private TextMeshProUGUI enemyAlertText; // Nombre único
     void Start()
     {
         gamePanel.SetActive(true);
@@ -21,6 +25,18 @@ public class GameplayManager : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    public void ShowEnemyAlert(string message)
+    {
+ 
+        if (enemyAlertText != null)
+            enemyAlertText.text = message;
+    }
+
+    public void HideEnemyAlert()
+    {
+        if (enemyAlertText != null)
+            enemyAlertText.text = "";
+    }
     public void Onlose()
     {
         gamePanel.SetActive(false);

@@ -32,7 +32,9 @@ public class Coin : MonoBehaviour
 
             // Desactivar el renderer y el collider de la moneda para que no se pueda recolectar nuevamente
             GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<Collider2D>().enabled = false;            
+            GetComponent<Collider2D>().enabled = false;
+
+            Destroy(gameObject);
         }
     }
 }

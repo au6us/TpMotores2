@@ -13,7 +13,7 @@ public class SaltarEnemigos : MonoBehaviour
 
     [SerializeField] private GameObject efecto;
 
-    private bool hasBeenDeath = false;
+    //private bool hasBeenDeath = false;
     public AudioSource deathEnemySound;
 
     private void Start()
@@ -38,7 +38,7 @@ public class SaltarEnemigos : MonoBehaviour
                         deathEnemySound.Play();
                     }
 
-                    hasBeenDeath = true;
+                    //hasBeenDeath = true;
                 }
 
                 else if (Mathf.Abs(punto.normal.x) > 0.5f)

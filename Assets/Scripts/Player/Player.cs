@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -86,6 +87,20 @@ public class Player : MonoBehaviour
 
     public ButtonController buttonController;
 
+    // GRUPO 2 – ORDERBY: visión de la moneda más cercana
+    [Header("Visión Monedas")]
+    [SerializeField] private float coinMaxXOffset = 5f;
+    [SerializeField] private float coinMaxYOffset = 1f;
+    [SerializeField] private TextMeshProUGUI distanceText;
+    [SerializeField] private TextMeshProUGUI distanceTextMts;
+
+    // GRUPO 3 – ALL: recompensa cada 3 monedas
+    [Header("Efecto Curación")]
+    [SerializeField] private AudioSource healAudioSource;
+    [SerializeField] private AudioClip healClip;
+    private int coinsCollectedForHeal;
+    private const int coinsForHeal = 3;
+
     private void Start()
     {
         life = maxLife;
@@ -127,6 +142,19 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        // —— LINQ OrderBy ——
+        var nearest = GetClosestCoinInBox(coinMaxXOffset, coinMaxYOffset);
+        if (nearest.coin != null)
+        {
+            distanceText.text = $"{nearest.distance:F2}";
+            distanceTextMts.text = "MTS";
+        }
+        else
+        {
+            distanceText.text = "";
+            distanceTextMts.text = "";
+        }
+
         isGrounded = Physics2D.OverlapBox(floorController.position, boxDimensions, 0f, floor);
         enPared = Physics2D.OverlapBox(controladorPared.position, dimensionCajaPared, 0f, floor);
 
@@ -176,6 +204,24 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public void CollectCoin()
+    {
+        coins++;
+        saveSystem.SaveData(coins);
+        UpdateCoinUI();
+
+        // —— LINQ All ——
+        coinsCollectedForHeal++;
+        if (coinsCollectedForHeal >= coinsForHeal)
+        {
+            // recompensa: cura completa + sonido
+            life = maxLife;
+            barraDeVida.CambiarVidaActual(life);
+            healAudioSource?.PlayOneShot(healClip);
+            coinsCollectedForHeal = 0;
+        }
+    }
 
     public void Knockback(Vector2 punchPoint)
     {
@@ -398,12 +444,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CollectCoin()
+   
+
+    // —— MÉTODO LINQ ORDERBY ——  
+    public (Transform coin, float distance) GetClosestCoinInBox(float maxX, float maxY)
     {
-        coins++;
-        saveSystem.SaveData(coins); // Guardar cada vez que recolecta una moneda
-        UpdateCoinUI();
+        var allCoins = FindObjectsOfType<Coin>().Select(c => c.transform);
+        var inBox = allCoins.Where(t =>
+                          Mathf.Abs(t.position.x - transform.position.x) <= maxX &&
+                          Mathf.Abs(t.position.y - transform.position.y) <= maxY);
+
+        return inBox
+               .Select(t => (coin: t, distance: Vector2.Distance(transform.position, t.position)))
+               .OrderBy(x => x.distance)
+               .FirstOrDefault();
     }
+
 
     private void UpdateCoinUI()
     {

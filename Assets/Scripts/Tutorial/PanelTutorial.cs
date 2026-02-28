@@ -67,18 +67,21 @@ public class PanelTutorial : MonoBehaviour
 
     private IEnumerator RutinaPrepararYMostrar(string nombreVideo)
     {
+        // --- EL ARREGLO ESTÁ ACÁ ---
+        // Congelamos el tiempo AL INSTANTE, antes de que Unity se ponga a cargar el video.
+        // Así los enemigos y el cronómetro se clavan en el lugar al milisegundo que tocás el cartel.
+        Time.timeScale = 0.0001f;
+
         videoPlayer.source = VideoSource.Url;
         videoPlayer.url = Application.streamingAssetsPath + "/" + nombreVideo;
 
         videoPlayer.Prepare();
 
+        // Mientras el video carga por detrás, el juego ya está en pausa, así que no perdés nada de tiempo.
         while (!videoPlayer.isPrepared)
         {
             yield return null;
         }
-
-        // Al estar en StreamingAssets y usar 0.0001f, el video fluye perfecto y el juego no se rompe.
-        Time.timeScale = 0.0001f;
 
         videoPlayer.Play();
         StartCoroutine(AnimacionAparecer());

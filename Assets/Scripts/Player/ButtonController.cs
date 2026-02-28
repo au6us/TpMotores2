@@ -9,8 +9,6 @@ public class ButtonController : Controller
     private Vector3 dir;
     private bool jump = false;
     private bool dash = false;
-
-    // --- VARIABLES NUEVAS PARA GUARDAR EL ESTADO ---
     private bool moviendoDerecha = false;
     private bool moviendoIzquierda = false;
 
@@ -52,27 +50,21 @@ public class ButtonController : Controller
         if (Input.GetKeyDown(KeyCode.S)) PressDashButton();
     }
 
-    // --- MÉTODOS PARA LOS BOTONES TÁCTILES ---
-
-    // Llamar a este en "Pointer Down" del botón Derecha
     public void PressRightButton()
     {
         moviendoDerecha = true;
     }
 
-    // Llamar a este en "Pointer Up" del botón Derecha
     public void ReleaseRightButton()
     {
         moviendoDerecha = false;
     }
 
-    // Llamar a este en "Pointer Down" del botón Izquierda
     public void PressLeftButton()
     {
         moviendoIzquierda = true;
     }
 
-    // Llamar a este en "Pointer Up" del botón Izquierda
     public void ReleaseLeftButton()
     {
         moviendoIzquierda = false;
@@ -82,7 +74,7 @@ public class ButtonController : Controller
     {
         moviendoDerecha = false;
         moviendoIzquierda = false;
-        dir = Vector3.zero; // <-- Agregamos esto para forzar la detención total al instante
+        dir = Vector3.zero; // Agregamos esto para forzar la detención al instante
     }
 
     private void OnDisable()
@@ -90,7 +82,7 @@ public class ButtonController : Controller
         stopMovement();
     }
 
-    // --- MÉTODOS OBLIGATORIOS DEL CONTROLLER ---
+    
     public override Vector3 GetMoveDir()
     {
         return dir;
@@ -115,8 +107,8 @@ public class ButtonController : Controller
 
     public void SetDashButtonState(bool unlocked)
     {
-        // Aquí podés activar/desactivar visualmente el botón de dash
-        GameObject btnDash = GameObject.Find("DashButton"); // Cambiá por el nombre real
+        // Se desactiva o activa visualmente el botón de dash
+        GameObject btnDash = GameObject.Find("DashButton"); 
         if (btnDash != null) btnDash.SetActive(unlocked);
     }
 }

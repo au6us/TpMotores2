@@ -24,13 +24,14 @@ public class LevelManager : MonoBehaviour
         saveHandler.SaveStars(levelIndex, starsEarned);
     }
 
+    //Se calcula el tiempo en que se gana cada estrella
     int CalculateStars(float time)
     {
         if (time <= 40f)
             return 3;
-        else if (time <= 60f)
+        else if (time <= 80f)
             return 2;
-        else if (time <= 90f)
+        else if (time <= 120f)
             return 1;
         else
             return 0;

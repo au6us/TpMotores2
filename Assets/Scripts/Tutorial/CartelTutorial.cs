@@ -4,7 +4,7 @@ public class CartelTutorial : MonoBehaviour
 {
     [Header("Contenido de ESTE Tutorial")]
     [Tooltip("Escribí el nombre exacto del video con su extensión, ej: tutorial_salto.mp4")]
-    [SerializeField] private string nombreArchivoVideo; // ACÁ ESTÁ EL CAMBIO
+    [SerializeField] private string nombreArchivoVideo;
     [TextArea(3, 5)]
     [SerializeField] private string textoTutorial;
 
@@ -18,7 +18,6 @@ public class CartelTutorial : MonoBehaviour
         {
             if (Time.unscaledTime >= proximoTiempoPermitido)
             {
-                // Le pasamos el string (texto) en lugar del clip
                 PanelTutorial.Instance.AbrirTutorial(nombreArchivoVideo, textoTutorial, this);
             }
         }

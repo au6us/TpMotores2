@@ -32,12 +32,10 @@ public class FondoMovimiento : MonoBehaviour
         // Si es el sol, aplicamos el offset de la textura con tiling ajustado
         if (esSol)
         {
-            // Aquí controlamos el movimiento, pero ajustamos para evitar cortes
             material.mainTextureOffset += offset;
         }
         else
         {
-            // Movimiento normal de las capas de fondo
             material.mainTextureOffset += offset;
         }
     }

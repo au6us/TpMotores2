@@ -20,7 +20,6 @@ public class LevelData : MonoBehaviour
     {
         if (saveHandler != null)
         {
-            // Esta función ahora debe usar GetTotalStars() para obtener todas las estrellas
             Debug.Log("Total de estrellas disponibles: " + saveHandler.GetTotalStars());
         }
     }

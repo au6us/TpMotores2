@@ -7,7 +7,7 @@ public class DevCheatMenu : MonoBehaviour
 {
     [Header("UI del Menú Secreto")]
     [SerializeField] private GameObject panelDev;
-    [SerializeField] private TMP_InputField inputMonedas; // El campo para escribir
+    [SerializeField] private TMP_InputField inputMonedas; 
     [SerializeField] private Button btnAplicar;
     [SerializeField] private Button btnCerrar;
 
@@ -17,7 +17,6 @@ public class DevCheatMenu : MonoBehaviour
     {
         saveHandler = FindObjectOfType<JSONSaveHandler>();
 
-        // Nos aseguramos de que arranque apagado para que nadie lo vea
         if (panelDev != null) panelDev.SetActive(false);
 
         btnAplicar.onClick.AddListener(AplicarMonedas);
@@ -31,7 +30,7 @@ public class DevCheatMenu : MonoBehaviour
         {
             if (panelDev != null && !panelDev.activeSelf)
             {
-                panelDev.SetActive(true); // ¡Aparece el menú secreto!
+                panelDev.SetActive(true); 
             }
         }
     }
@@ -40,10 +39,10 @@ public class DevCheatMenu : MonoBehaviour
     {
         if (saveHandler != null)
         {
-            // Intentamos convertir el texto que escribiste a un número
+            
             if (int.TryParse(inputMonedas.text, out int cantidadMonedas))
             {
-                // Usamos la función de tu JSON para SETEAR la cantidad exacta
+                
                 saveHandler.SaveData(cantidadMonedas);
 
                 Debug.Log("¡Truco activado! Monedas seteadas a: " + cantidadMonedas);

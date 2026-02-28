@@ -28,25 +28,25 @@ public class MenuLevels : MonoBehaviour
     {
         if (saveHandler == null) return;
 
-        // 1. Estrellas ganadas JUGANDO el nivel 1
+        // Estrellas ganadas JUGANDO el nivel 1
         int starsEarned = saveHandler.LoadLevelStars(1);
 
-        // 2. Estrellas COMPRADAS en la tienda
+        // Estrellas COMPRADAS en la tienda
         int starsBought = saveHandler.GetBoughtStars();
 
-        // 3. SUMA TOTAL
+        // Suma total
         int totalStars = starsEarned + starsBought;
 
         Debug.Log($"Check Desbloqueo: Nivel1({starsEarned}) + Tienda({starsBought}) = {totalStars}");
 
-        // 4. LÓGICA DE DESBLOQUEO (Necesitas 3 o más en total)
+        // Logica desbloqueo nivel 2
         bool isUnlocked = totalStars >= 3;
 
         if (levelTwoButton != null)
         {
             levelTwoButton.interactable = isUnlocked;
 
-            // Si tienes una imagen de candado, la ocultamos si está desbloqueado
+            
             if (candadoNivel2 != null)
             {
                 candadoNivel2.SetActive(!isUnlocked);
@@ -77,13 +77,13 @@ public class MenuLevels : MonoBehaviour
             // Verificamos si tiene suficiente energía
             if (stamina.currentStamina >= COSTO_ESTAMINA)
             {
-                // SI TIENE: Usamos la energía y cargamos
+                
                 stamina.UseStamina(COSTO_ESTAMINA);
                 CargarEscena(index);
             }
             else
             {
-                // NO TIENE: Mostramos el aviso de error
+               
                 if (warningSystem != null) warningSystem.MostrarAviso();
                 Debug.Log("No tenés suficiente Stamina para jugar.");
             }

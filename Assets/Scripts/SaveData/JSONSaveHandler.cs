@@ -46,15 +46,11 @@ public class JSONSaveHandler : MonoBehaviour
         savePath = Application.persistentDataPath + "/level_data.json";
     }
 
-    // --- MÉTODOS DE MONEDAS Y DATOS DEL JUGADOR ---
-
-    // Este es el que usa tu Player (el "viejo" nombre)
     public int LoadData()
     {
         return LoadPlayerData().coins;
     }
 
-    // Este es el que usa tu Player para guardar monedas
     public void SaveData(int coins)
     {
         PlayerData current = LoadPlayerData();
@@ -62,13 +58,11 @@ public class JSONSaveHandler : MonoBehaviour
         SavePlayerData(current.coins, current.starsBought);
     }
 
-    // Este es el "nuevo" que usan los scripts corregidos
     public int GetCoins()
     {
         return LoadData();
     }
 
-    // Este es el "nuevo" para sumar monedas
     public void AddCoins(int amount)
     {
         int current = LoadData();
@@ -102,7 +96,6 @@ public class JSONSaveHandler : MonoBehaviour
         return LoadPlayerData().starsBought;
     }
 
-    // Para compatibilidad si algún script viejo lo busca
     public int LoadStarsBought()
     {
         return GetBoughtStars();
@@ -114,7 +107,6 @@ public class JSONSaveHandler : MonoBehaviour
         SavePlayerData(current.coins, stars);
     }
 
-    // --- MÉTODOS DE NIVELES (ESTRELLAS GANADAS) ---
 
     public void SaveStars(int levelIndex, int stars)
     {
@@ -129,7 +121,6 @@ public class JSONSaveHandler : MonoBehaviour
         }
     }
 
-    // OJO: Cambié el nombre para que coincida con lo que buscan Shop.cs y MenuLevels.cs
     public int LoadLevelStars(int levelIndex)
     {
         return LoadStars(levelIndex);
@@ -165,8 +156,6 @@ public class JSONSaveHandler : MonoBehaviour
         return total;
     }
 
-    // --- MÉTODOS PARA DASH ---
-
     public void SaveDashState(bool isUnlocked)
     {
         PlayerPrefs.SetInt(DashKey, isUnlocked ? 1 : 0);
@@ -188,7 +177,6 @@ public class JSONSaveHandler : MonoBehaviour
         Debug.Log("Datos borrados");
     }
 
-    // --- MÉTODOS PARA TRIPLE SALTO ---
     public void SaveTripleJumpState(bool isUnlocked)
     {
         PlayerPrefs.SetInt(TripleJumpKey, isUnlocked ? 1 : 0);

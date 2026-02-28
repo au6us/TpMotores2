@@ -8,14 +8,14 @@ public class Trofeo : MonoBehaviour
     [SerializeField] public ParticleSystem sdpWin;
     [SerializeField] private GameplayManager gamePlayCanvas;
     [SerializeField] private Animator animatorTrophy;
-    [SerializeField] private float delayWin = 4f; // Tiempo de espera antes de mostrar el panel de victoria
+    [SerializeField] private float delayWin = 3f;
 
     private bool hasPlayedSound = false;
     private LevelManager levelManager;
 
     private void Start()
     {
-        levelManager = FindObjectOfType<LevelManager>(); // Buscar el LevelManager en la escena
+        levelManager = FindObjectOfType<LevelManager>(); 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,10 +30,9 @@ public class Trofeo : MonoBehaviour
                 if (!hasPlayedSound)
                 {
                     winAudioSource.Play();
-                    hasPlayedSound = true; // Marcar que el sonido ya se reprodujo
+                    hasPlayedSound = true; 
                 }
 
-                // **Guardar estrellas del nivel**
                 if (levelManager != null)
                 {
                     levelManager.CompleteLevel();
@@ -44,7 +43,6 @@ public class Trofeo : MonoBehaviour
                     Debug.LogError("No se encontró LevelManager en la escena.");
                 }
 
-                // Iniciar la corrutina para mostrar el panel de victoria después de un retraso
                 StartCoroutine(ShowWinScreenAfterDelay());
             }
         }

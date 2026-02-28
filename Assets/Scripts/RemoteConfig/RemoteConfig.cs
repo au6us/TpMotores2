@@ -16,10 +16,10 @@ public class RemoteConfig : MonoBehaviour
     public string enemyName2;
     public int appVersion;
     public bool serverOut;
-    public float playerSpeed;    // Variable Nueva
-    public string welcomeMessage; // Variable Nueva
-    public float jumpForce;   // X3
-    public int startCoins;    // X4
+    public float playerSpeed;    
+    public string welcomeMessage; 
+    public float jumpForce;  
+    public int startCoins;    
 
 
     async Task InitializeRemoteConfigAsync()
@@ -62,7 +62,6 @@ public class RemoteConfig : MonoBehaviour
         jumpForce = RemoteConfigService.Instance.appConfig.GetFloat("JumpForce", 6.0f);
         startCoins = RemoteConfigService.Instance.appConfig.GetInt("StartCoins", 0);
 
-        //PUENTE (APLICACIÓN DE DATOS)
 
         //PUENTE AL PLAYER
         Player elJugador = FindObjectOfType<Player>();
@@ -95,6 +94,6 @@ public class RemoteConfig : MonoBehaviour
             }
         }
 
-        Debug.Log("✅ Listoorti, datos aplicados");
+        Debug.Log("Listoorti, datos aplicados");
     }
 }

@@ -77,7 +77,6 @@ public class PanelTutorial : MonoBehaviour
             yield return null;
         }
 
-        // --- LA COMBINACIÓN MÁGICA ---
         // Al estar en StreamingAssets y usar 0.0001f, el video fluye perfecto y el juego no se rompe.
         Time.timeScale = 0.0001f;
 

@@ -24,10 +24,21 @@ public class MenuPausa : MonoBehaviour
         botonPausa.SetActive(true);
         menuPausa.SetActive(false);
     }
+
+    public void ConfirmRestart()
+    {
+        ConfirmPopup.Instance.MostrarPopup(Restart);
+    }
+
     public void Restart()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
+    public void ConfirmMenu()
+    {
+        ConfirmPopup.Instance.MostrarPopup(Menu);
     }
     public void Menu()
     {

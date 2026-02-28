@@ -10,7 +10,7 @@ public class MenuCoinDisplay : MonoBehaviour
 
     private void Start()
     {
-        // Busca el JSONSaveHandler en la escena del menú
+        // Busca el JSON en la escena del menú
         saveSystem = FindObjectOfType<JSONSaveHandler>();
         if (saveSystem == null)
         {

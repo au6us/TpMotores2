@@ -8,18 +8,18 @@ public class Shop : MonoBehaviour
     [Header("--- UI ---")]
     [SerializeField] private TextMeshProUGUI coinsText;
     [SerializeField] private TextMeshProUGUI starsText;
-    [SerializeField] private UIWarning warningSinPlata; // Acá va tu cartel rojo
+    [SerializeField] private UIWarning warningSinPlata;
 
     [Header("--- Botones ---")]
     [SerializeField] private Button btnDash;
     [SerializeField] private Button btnItem2; // Estrella x1
-    [SerializeField] private Button btnTripleSalto; // <-- NUEVO: Botón del Triple Salto
+    [SerializeField] private Button btnTripleSalto;
     [SerializeField] private Button btnEnergia;
 
     [Header("--- Precios ---")]
     [SerializeField] private int precioDash = 10;
     [SerializeField] private int precioItem2 = 5;
-    [SerializeField] private int precioTripleSalto = 100; // <-- NUEVO: Precio del Triple Salto
+    [SerializeField] private int precioTripleSalto = 100;
     [SerializeField] private int precioEnergia = 20;
 
     private JSONSaveHandler saveHandler;
@@ -50,7 +50,6 @@ public class Shop : MonoBehaviour
         UpdateUI();
     }
 
-    // --- COMPRA DE DASH ---
     public void ComprarDash()
     {
         if (saveHandler == null) return;
@@ -62,7 +61,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            MostrarErrorDinero(); // Llama al cartel rojo
+            MostrarErrorDinero();
         }
     }
 
@@ -77,7 +76,6 @@ public class Shop : MonoBehaviour
         BloquearBoton(btnDash);
     }
 
-    // --- COMPRA DE ENERGÍA ---
     public void ComprarEnergia()
     {
         if (saveHandler == null) return;
@@ -88,7 +86,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            MostrarErrorDinero(); // Llama al cartel rojo
+            MostrarErrorDinero();
         }
     }
 
@@ -107,7 +105,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // --- COMPRA 1 ESTRELLA ---
     public void ComprarItem2()
     {
         if (currentCoins >= precioItem2)
@@ -116,7 +113,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            MostrarErrorDinero(); // Llama al cartel rojo
+            MostrarErrorDinero();
         }
     }
 
@@ -129,7 +126,6 @@ public class Shop : MonoBehaviour
         UpdateUI();
     }
 
-    // --- COMPRA TRIPLE SALTO ---
     public void ComprarTripleSalto()
     {
         if (saveHandler == null) return;
@@ -141,7 +137,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            MostrarErrorDinero(); // Llama al cartel rojo
+            MostrarErrorDinero();
         }
     }
 
@@ -160,7 +156,6 @@ public class Shop : MonoBehaviour
         BloquearBoton(btnTripleSalto); // Bloqueamos para que no lo compre de nuevo
     }
 
-    // --- NUEVA FUNCIÓN: MOSTRAR CARTEL ROJO ---
     private void MostrarErrorDinero()
     {
         if (warningSinPlata != null)
@@ -169,7 +164,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // --- ACTUALIZACIÓN VISUAL ---
     private void UpdateUI()
     {
         if (coinsText != null) coinsText.text = "" + currentCoins;
@@ -190,7 +184,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // --- BOTÓN BACK ---
     public void Back()
     {
         SceneManager.LoadScene(0);

@@ -5,13 +5,13 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [Header("Configuración Remota")]
-    public string enemyID; //"enemy_1" o "enemy_2" aquí.
+    public string enemyID; 
 
     [Header("Stats")]
     public int life;
     public int damageAttack;
 
-    // Función para recibir datos de la nube
+    
     public void ConfigureEntity(string newName, int extraLife)
     {
         if (!string.IsNullOrEmpty(newName))

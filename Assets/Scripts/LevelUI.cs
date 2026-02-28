@@ -12,7 +12,7 @@ public class LevelUI : MonoBehaviour
     public Image star1;
 
     [Header("Tiempo total para vaciar todo (segundos)")]
-    public float maxTime = 90f;
+    public float maxTime = 100f;
 
     private float startTime;
     private float starTime;

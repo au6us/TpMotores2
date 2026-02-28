@@ -106,7 +106,6 @@ public class Player : MonoBehaviour
         {
             coins = saveHandler.LoadData();
 
-            // --- CARGAMOS EL TRIPLE SALTO DESDE EL JSON ---
             if (saveHandler.LoadTripleJumpState())
             {
                 saltosExtra = 2;
@@ -122,14 +121,13 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // Para cualquier otro nivel, preguntamos al SaveHandler
             if (saveHandler != null)
             {
                 dashUnlocked = saveHandler.LoadDashState();
             }
             else
             {
-                dashUnlocked = false; // Por seguridad, si no hay saveHandler, no hay dash
+                dashUnlocked = false;
             }
         }
 
@@ -352,22 +350,17 @@ public class Player : MonoBehaviour
         if (life <= 0)
         {
             life = 0;
-            // En vez de abrir el panel al instante, iniciamos la secuencia automática
             StartCoroutine(SecuenciaMuerteAutomatica());
         }
     }
 
     private IEnumerator SecuenciaMuerteAutomatica()
     {
-        // 1. Esperamos 1 segundo para que el jugador vea que murió 
         yield return new WaitForSeconds(0f);
 
-        // 2. Mostramos el anuncio (Interstitial)
         Dead();
 
-        // 3. Lo mandamos directo al último checkpoint (o al inicio si no tocó ninguno)
         RespawnAtCheckpoint();
-
         
     }
 
@@ -403,10 +396,24 @@ public class Player : MonoBehaviour
 
     private void Dead()
     {
-        if (AdsManager.Instance != null)
+        // Cargamos el número de muertes que tenemos guardado (si no hay nada, empieza en 0)
+        int muertesGuardadas = PlayerPrefs.GetInt("ContadorMuertes", 0);
+
+        // Sumamos la nueva muerte
+        muertesGuardadas++;
+
+        // Verificamos si toca anuncio
+        if (muertesGuardadas % 2 == 0)
         {
-            AdsManager.Instance.ShowInterstitial();
+            if (AdsManager.Instance != null)
+            {
+                AdsManager.Instance.ShowInterstitial();
+            }
         }
+
+        //Guardamos el nuevo valor para la próxima vez
+        PlayerPrefs.SetInt("ContadorMuertes", muertesGuardadas);
+        PlayerPrefs.Save();
     }
 
 
@@ -459,11 +466,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    // --- NUEVO: FUNCIÓN DEL TRIPLE SALTO ---
     public void UnlockTripleJump()
     {
-        saltosExtra = 2; // Le habilitamos 2 saltos en el aire (Triple Salto)
-        saltosExtraRestantes = saltosExtra; // Se lo recargamos por si está en pleno vuelo
+        saltosExtra = 2; 
+        saltosExtraRestantes = saltosExtra;
     }
 
     private void OnDrawGizmos()

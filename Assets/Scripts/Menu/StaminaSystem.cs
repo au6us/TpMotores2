@@ -65,14 +65,6 @@ public class StaminaSystem : MonoBehaviour
             UpdateTimerUI();
             SaveStamina();
 
-            //timer += Time.deltaTime;
-
-            //if(timer >= timeToChargeStamina)
-            //{
-            //    currentStamina += 1;
-            //    timer = 0;
-            //}
-
             yield return new WaitForEndOfFrame();
 
         }
@@ -119,7 +111,7 @@ public class StaminaSystem : MonoBehaviour
     {
         if(currentStamina >= maxStamina)
         {
-            timerText.text = "Full Stamina";
+            timerText.text = "Full";
 
             return;
         }

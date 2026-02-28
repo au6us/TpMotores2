@@ -30,7 +30,7 @@ public class Coin : MonoBehaviour
                 player.CollectCoin(); // Añade una moneda al jugador
             }
 
-            // Desactivar el renderer y el collider de la moneda para que no se pueda recolectar nuevamente
+            // Desactivar el renderer y el collider de la moneda para que no se pueda recolectar de nuevo
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;            
         }

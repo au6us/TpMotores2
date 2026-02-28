@@ -52,7 +52,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void ShowInterstitial()
     {
         Debug.Log("Cargando Interstitial...");
-        // ¡CONGELAMOS EL TIEMPO ACÁ DIRECTAMENTE! (Así queda más prolijo)
         Time.timeScale = 0f;
         Advertisement.Load(_interstitialId, this);
     }
@@ -64,7 +63,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         Advertisement.Load(_rewardedId, this);
     }
 
-    // --- CALLBACKS OBLIGATORIOS (Interfaces) ---
+    
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads Inicializado.");
@@ -89,14 +88,14 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
     }
 
-    // --- SALVAVIDAS: SI FALLA, DESCONGELAMOS EL JUEGO ---
+   
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
     {
         Debug.Log($"Error cargando Ad {adUnitId}: {error} - {message}");
 
         if (adUnitId.Equals(_interstitialId))
         {
-            Time.timeScale = 1f; // Salva el soft-lock si no hay internet
+            Time.timeScale = 1f;
         }
     }
 
@@ -104,21 +103,21 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         if (adUnitId.Equals(_interstitialId))
         {
-            Time.timeScale = 1f; // Salva el soft-lock si falla al mostrarse
+            Time.timeScale = 1f; 
         }
     }
 
     public void OnUnityAdsShowStart(string adUnitId) { }
     public void OnUnityAdsShowClick(string adUnitId) { }
 
-    // --- ACÁ ES DONDE SUCEDE LA MAGIA DE REANUDAR ---
+    
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
-        // Si el anuncio que se acaba de cerrar es el de morir...
+        
         if (adUnitId.Equals(_interstitialId))
         {
             Debug.Log("Interstitial cerrado, reanudando el juego...");
-            Time.timeScale = 1f; // ¡Descongelamos el juego!
+            Time.timeScale = 1f; 
         }
 
         if (adUnitId.Equals(_rewardedId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))

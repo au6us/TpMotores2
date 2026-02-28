@@ -8,8 +8,8 @@ public class ConfirmPopup : MonoBehaviour
 
     [Header("Referencias UI")]
     [SerializeField] private GameObject panelPopup;
-    [SerializeField] private Button btnConfirmar; // Arrastrar el botón de "Sí"
-    [SerializeField] private Button btnCancelar;  // Arrastrar el botón de "No"
+    [SerializeField] private Button btnConfirmar; 
+    [SerializeField] private Button btnCancelar;  
 
     private Action accionConfirmar;
 

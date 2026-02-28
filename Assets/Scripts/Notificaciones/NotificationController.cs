@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-// Usamos el namespace de notificaciones
 using Unity.Notifications.Android;
 
 public class NotificationController : MonoBehaviour
@@ -23,17 +22,17 @@ public class NotificationController : MonoBehaviour
         AndroidNotificationCenter.CancelAllScheduledNotifications();
     }
 
-    // Esta función detecta si MINIMIZAS la app (Home, cambio de app, etc)
+    // Esta función detecta si MINIMIZAS la app
     private void OnApplicationFocus(bool focus)
     {
         if (focus == false)
         {
-            // Si te fuiste (focus false) -> Programamos el aviso
+            // Si te fuiste (focus false) Programamos el aviso
             ProgramarNotificacion();
         }
         else
         {
-            // Si volviste (focus true) -> Cancelamos el aviso para que no joda
+            // Si volviste (focus true) Cancelamos el aviso para que no joda
             AndroidNotificationCenter.CancelAllScheduledNotifications();
             AndroidNotificationCenter.CancelAllDisplayedNotifications();
         }
@@ -65,7 +64,6 @@ public class NotificationController : MonoBehaviour
         notificacion.SmallIcon = "icon_0";
         notificacion.LargeIcon = "icon_1";
 
-        // Enviar
         AndroidNotificationCenter.SendNotification(notificacion, idCanal);
         Debug.Log(" Notificación de Froggy programada para 10 seg.");
     }
